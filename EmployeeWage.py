@@ -20,14 +20,15 @@ class Constant:
 
 class Employee:
     constant = Constant()
+    switcher = {}
     def check_employee(self):
         random_attendance = round(random.randint(0,2))
-        switcher = {
+        self.switcher = {
             0 : self.calculate_fullday_wage(),
             1 : self.calculate_fullday_wage()//2,
             2 : 0
         }
-        return switcher.get(random_attendance, -1)
+        return self.switcher.get(random_attendance, -1)
 
     def calculate_fullday_wage(self):
         return self.constant.WAGE_PER_HOUR * self.constant.FULL_DAY_HOUR
@@ -35,9 +36,30 @@ class Employee:
     def calculate_monthly_wage(self):
         monthly_wage = 0
         for days in range(self.constant.MONTHLY_WORKING_DAY):
-            monthly_wage += int(self.check_employee())
+            monthly_wage += self.check_employee() 
         print(f'Monthly wage is {monthly_wage}') 
+
+    def calculate_wage_till_total_hour_or_days(self):
+        hours = 100
+        days = self.constant.MONTHLY_WORKING_DAY
+        total_wage = 0
+        while hours > 0 and days > 0:
+            wage = self.check_employee()
+            total_wage += wage
+            if(wage == self.calculate_fullday_wage):
+                hours -= constant.FULL_DAY_HOUR
+            elif(wage == self.calculate_fullday_wage()//2):
+                hours -= self.calculate_fullday_wage()//2
+            else:
+                pass
+            days -= 1
+        return total_wage
+        
+
+                
+            
 
 employee = Employee()
 print(employee.check_employee())
 print(employee.calculate_monthly_wage())
+print(employee.calculate_wage_till_total_hour_or_days())
