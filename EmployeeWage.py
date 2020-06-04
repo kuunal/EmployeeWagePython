@@ -54,12 +54,14 @@ class Employee:
                 pass
             days -= 1
         return total_wage
-        
-
-                
-            
 
 employee = Employee()
+employee1 = Employee()
+
 print(employee.check_employee())
 print(employee.calculate_monthly_wage())
 print(employee.calculate_wage_till_total_hour_or_days())
+
+print(employee1.check_employee())
+print(employee1.calculate_monthly_wage())
+print(employee1.calculate_wage_till_total_hour_or_days())
